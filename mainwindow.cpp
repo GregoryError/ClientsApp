@@ -1,12 +1,12 @@
 #include "mainwindow.h"
 
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    QRect rq = QApplication::desktop()->availableGeometry();
 
-    QTabWidget *tab = new QTabWidget(this);
-    //this->setStyleSheet("QWidget {background-image: url(:/background_2.png);}");
+    QRect rq = QApplication::desktop()->availableGeometry();
 
     int wid(0);
     if(rq.width() < rq.height())
@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
    }
     else
     {
+        tab->setTabPosition(QTabWidget::East);
         wid = (rq.width() / 2) / 8;
         QSize deskSize(wid, rq.height() / 2);
         tab->setIconSize(deskSize);
@@ -26,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     tab->setStyleSheet("QTabBar::tab { width: 180px; }");
     tab->setStyleSheet("QTabBar::tab { height: 180px; }");
 
-    ///////////////////////////////////////////////////////////////////
 
+    this->resize(400, 400);
 
     QWidget *serv1 = new QWidget;
 
@@ -39,28 +40,85 @@ MainWindow::MainWindow(QWidget *parent)
 
     right->setStyleSheet("QLabel {background-image: url(:/rightfield.png);}");
 
+
+
     QPushButton *butt = new QPushButton("Новости");
-    butt->setStyleSheet("QPushButton {background-image: url(:/empty.png); font: 20pt Segoe UI;}");
+    butt->setStyleSheet("QPushButton {color: white;"
+                        "background-image: url(:/empty.png);"
+                        " background-image: url(:/empty.png);"
+                        " border-style: outset;"
+                        " border-width: 3px;"
+                        " border-radius: 10px;"
+                        " border-color: beige;"
+                        " font:  65px Segoe UI;"
+                        " min-width: 10em;"
+                        " padding: 6px;}");
+
     butt->setMaximumWidth(rq.width() / 3 );
- // QPushButton *butt1 = new QPushButton("Тарифы");
- // butt1->setStyleSheet("QPushButton {background-image: url(:/empty.png); font: 20pt Segoe UI;}");
- // butt1->setMaximumWidth(rq.width() / 3 );
+    butt->setMinimumHeight(rq.height() / 13);
     QPushButton *butt2 = new QPushButton("Cайт");
-    butt2->setStyleSheet("QPushButton {background-image: url(:/empty.png); font: 20pt Segoe UI;}");
+    butt2->setStyleSheet("QPushButton {color: white;"
+                         " border-style: outset;"
+                         "background-image: url(:/empty.png);"
+                         " border-width: 3px;"
+                         " border-radius: 10px;"
+                         " border-color: beige;"
+                         " font:  65px Segoe UI;"
+                         " min-width: 10em;"
+                         " padding: 6px;}");
     butt2->setMaximumWidth(rq.width() / 3 );
+    butt2->setMinimumHeight(rq.height() / 13);
     QPushButton *butt0 = new QPushButton("Соц. сети");
-    butt0->setStyleSheet("QPushButton {background-image: url(:/empty.png); font: 20pt Segoe UI;}");
+
+    butt0->setStyleSheet("QPushButton {color: white;"
+                         "background-image: url(:/empty.png);"
+                         " border-style: outset;"
+                         " border-width: 3px;"
+                         " border-radius: 10px;"
+                         " border-color: beige;"
+                         " font:  65px Segoe UI;"
+                         " min-width: 10em;"
+                         " padding: 6px;}");
     butt0->setMaximumWidth(rq.width() / 3 );
+    butt0->setMinimumHeight(rq.height() / 13);
     QPushButton *butt3 = new QPushButton("Мой счет");
-    butt3->setStyleSheet("QPushButton {background-image: url(:/empty.png); font: 20pt Segoe UI;}");
+    butt3->setStyleSheet("QPushButton {color: white;"
+                         "background-image: url(:/empty.png);"
+                         " border-style: outset;"
+                         " border-width: 3px;"
+                         " border-radius: 10px;"
+                         " border-color: beige;"
+                         " font:  65px Segoe UI;"
+                         " min-width: 10em;"
+                         " padding: 6px;}");
     butt3->setMaximumWidth(rq.width() / 3 );
+    butt3->setMinimumHeight(rq.height() / 13);
     QPushButton *butt4 = new QPushButton("Платежи");
-    butt4->setStyleSheet("QPushButton {background-image: url(:/empty.png); font: 20pt Segoe UI;}");
+    butt4->setStyleSheet("QPushButton {color: white;"
+                         "background-image: url(:/empty.png);"
+                         " border-style: outset;"
+                         " border-width: 3px;"
+                         " border-radius: 10px;"
+                         " border-color: beige;"
+                         " font:  65px Segoe UI;"
+                         " min-width: 10em;"
+                         " padding: 6px;}");
     butt4->setMaximumWidth(rq.width() / 3 );
-    QPushButton *butt5 = new QPushButton("Позвонить");
-    butt5->setStyleSheet("QPushButton {background-image: url(:/empty.png); font: 20pt Segoe UI;}");
+    butt4->setMinimumHeight(rq.height() / 13);
+    QPushButton *butt5 = new QPushButton("Позвонить нам");
+    butt5->setStyleSheet("QPushButton {color: white;"
+                         "background-image: url(:/empty.png);"
+                         " border-style: outset;"
+                         " border-width: 3px;"
+                         " border-radius: 10px;"
+                         " border-color: beige;"
+                         " font:  65px Segoe UI;"
+                         " min-width: 10em;"
+                         " padding: 6px;}");
     butt5->setMaximumWidth(rq.width() / 3 );
+    butt5->setMinimumHeight(rq.height() / 13);
     QVBoxLayout *VButtLyt = new QVBoxLayout;
+
 
 
     VButtLyt->addWidget(butt);
@@ -161,8 +219,19 @@ MainWindow::MainWindow(QWidget *parent)
     this->connect(butt5, SIGNAL(clicked()), this, SLOT(CallSupp()));
     this->connect(butt2, SIGNAL(clicked()), this, SLOT(GoUrl()));
     this->connect(butt0, SIGNAL(clicked()), this, SLOT(GoSocial()));
+    this->connect(butt, SIGNAL(clicked()), this, SLOT(TabValue()));
+
+    QApplication::primaryScreen()->setOrientationUpdateMask(Qt::PortraitOrientation | Qt::LandscapeOrientation);
+    QApplication::connect(QApplication::primaryScreen(), SIGNAL(orientationChanged(Qt::ScreenOrientation)), this, SLOT(ScreenSpin()));
+
 
     tab->show();
+
+}
+
+void MainWindow::TabValue()
+{
+    tab->setCurrentIndex(1);
 }
 
 
@@ -182,6 +251,33 @@ void MainWindow::GoSocial()
     QUrl myUrl("https://vk.com/arrivanet");
     QDesktopServices::openUrl(myUrl);
 }
+
+void MainWindow::ScreenSpin()
+{
+
+    QRect rq = QApplication::desktop()->availableGeometry();
+
+    int wid(0);
+    if(rq.width() < rq.height())
+    {
+        tab->setTabPosition(QTabWidget::South);
+        wid = (rq.width()-20) / 5;
+        QSize size(wid, wid);
+        tab->setIconSize(size);
+   }
+    else
+    {
+        tab->setTabPosition(QTabWidget::East);
+        wid = (rq.width() / 2) / 8;
+        QSize deskSize(wid, rq.height() / 2);
+        tab->setIconSize(deskSize);
+    }
+
+    tab->setStyleSheet("QTabBar::tab { width: 180px; }");
+    tab->setStyleSheet("QTabBar::tab { height: 180px; }");
+
+}
+
 
 MainWindow::~MainWindow()
 {
