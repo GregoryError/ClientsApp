@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>background_2.png</file>
+        <file>button.png</file>
+        <file>description.jpg</file>
+        <file>empty.png</file>
+        <file>logo.png</file>
+        <file>rightfield.png</file>
+        <file>Акаунт.png</file>
+        <file>Настройки.png</file>
+        <file>Начало.png</file>
+        <file>Сервис.png</file>
+    </qresource>
+</RCC>
