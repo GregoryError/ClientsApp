@@ -1,14 +1,20 @@
 <RCC>
     <qresource prefix="/">
-        <file>Сервис.png</file>
-        <file>Начало.png</file>
-        <file>Настройки.png</file>
-        <file>Акаунт.png</file>
-        <file>rightfield.png</file>
-        <file>logo.png</file>
+        <file>background.9.png</file>
+        <file>background.png</file>
         <file>background_2.png</file>
-        <file>empty.png</file>
         <file>button.png</file>
         <file>description.jpg</file>
+        <file>description.png</file>
+        <file>description_0.png</file>
+        <file>empty.png</file>
+        <file>logo.png</file>
+        <file>NO8hx.png</file>
+        <file>rightfield.png</file>
+        <file>test.jpg</file>
+        <file>Акаунт.png</file>
+        <file>Настройки.png</file>
+        <file>Начало.png</file>
+        <file>Сервис.png</file>
     </qresource>
 </RCC>

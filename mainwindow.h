@@ -16,7 +16,11 @@
 #include <QScrollBar>
 #include <QListView>
 #include <QFrame>
+#include <QMap>
 
+// Navigation
+
+#include <QGeoRoute>
 
 
 class MainWindow : public QMainWindow
@@ -34,8 +38,9 @@ public slots:
     void GoUrl();
     void GoSocial();
     void ScreenSpin();
+    void PayPoints();
 private slots:
-    void TabValue();
+    void NewsTab();
 };
 
 #endif // MAINWINDOW_H

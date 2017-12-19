@@ -1,10 +1,11 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-12-12T22:01:07
+# Project created by QtCreator 2017-12-19T16:25:40
 #
 #-------------------------------------------------
 
 QT       += core gui
+QT       += location
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,7 +26,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    mapping.cpp
 
 HEADERS += \
         mainwindow.h
