@@ -17,10 +17,14 @@
 #include <QListView>
 #include <QFrame>
 #include <QMap>
+#include <QString>
+#include <QObject>
+#include <QGeoPositionInfoSource>
+#include "location.h"
+
 
 // Navigation
 
-#include <QGeoRoute>
 
 
 class MainWindow : public QMainWindow
@@ -28,9 +32,13 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    QString latitude;
+    QString longitude;
     MainWindow(QWidget *parent = 0);
-
     QTabWidget *tab = new QTabWidget(this);
+
+   // QString latitude;
+   // QString longitude;
 
     ~MainWindow();
 public slots:
@@ -39,8 +47,26 @@ public slots:
     void GoSocial();
     void ScreenSpin();
     void PayPoints();
-private slots:
+    void OpenMap();
     void NewsTab();
+
+    void showCoord();
+
+
+
+
 };
 
+
+
+
+
 #endif // MAINWINDOW_H
+
+
+
+
+
+
+
+

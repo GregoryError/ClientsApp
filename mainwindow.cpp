@@ -1,31 +1,39 @@
 #include "mainwindow.h"
 
+#include <QGeoPositionInfoSource>
+
+
 struct Button                                                       // Making buttons
 {                                                                   // Making buttons
     QPushButton *butt = new QPushButton;                            // Making buttons
     Button() = default;                                             // Making buttons
     Button(const QString &name, QRect &size)                        // Making buttons
     {                                                               // Making buttons
-        butt->setText(name);                                        // Making buttons
-        butt->setStyleSheet("QPushButton {color: white;"            // Making buttons
-                            "background-image: url(:/empty.png);"   // Making buttons
-                            " background-image: url(:/empty.png);"  // Making buttons
-                            " border-style: outset;"                // Making buttons
-                            " border-width: 3px;"                   // Making buttons
-                            " border-radius: 10px;"                 // Making buttons
-                            " border-color: beige;"                 // Making buttons
-                            " font:  50px Segoe UI;"                // Making buttons
-                            " min-width: 10em;"                     // Making buttons
-                            " padding: 6px;}");                     // Making buttons
+        butt->setText(name);
+        butt->setStyleSheet("QPushButton {color: white;"
+                            "background-image: url(:/empty.png);"
+                            " background-image: url(:/empty.png);"
+                            " border-style: outset;"
+                            " border-width: 3px;"
+                            " border-radius: 10px;"
+                            " border-color: beige;"
+                            " font:  50px Segoe UI;"
+                            " min-width: 10em;"
+                            " padding: 6px;}");
         butt->setMaximumWidth(size.width() / 3 );                   // Making buttons
         butt->setMinimumHeight(size.height() / 13);                 // Making buttons
     }
 };
 
+
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     QRect rq = QApplication::desktop()->availableGeometry();
+
+
 
     int wid(0);
     if(rq.width() < rq.height())
@@ -127,7 +135,6 @@ MainWindow::MainWindow(QWidget *parent)
     ly->addWidget(pb4.butt);
     ly->addWidget(pb5.butt);
 
-
     serv->setLayout(ly);
     serv->setStyleSheet("QWidget {background-image: url(:/background_2.png);}");
 
@@ -135,17 +142,71 @@ MainWindow::MainWindow(QWidget *parent)
 
     QWidget *serv4 = new QWidget;
 
+    QString *text = new QString;
+
+    auto source = QGeoPositionInfoSource::createDefaultSource(this);
+    if(source){
+    text->append("sourceName: " + source->sourceName()); //return: core location
+    source->setPreferredPositioningMethods(QGeoPositionInfoSource::AllPositioningMethods);
+    source->startUpdates();
+    source->setUpdateInterval(1000);
+    source->requestUpdate();
+    }
+
+    QLabel *lbl = new QLabel;
+    QGeoPositionInfo info = source->lastKnownPosition();
+    QGeoCoordinate coordinate = info.coordinate();
+    latitude = QString::number(coordinate.latitude(), 'f', 6);
+    longitude = QString::number(coordinate.longitude(), 'f', 6);
+    QString all(*text);
+
+
+    all += " Coordinates: ";
+    all += latitude;
+    all += ",";
+    all += longitude;
+    lbl->setText(all);
+
+
+
+   location owner(latitude, longitude);
+
+
+
+
+
+
+
+
+
+
+
     Button
-           pb6("Ваши предложения", rq),
+           pb6("Координаты", rq),
            pb7("Настройки дизайна", rq),
            pb8("Публичный договор", rq);
 
+
+
+
+//    lbl->setStyleSheet("QLabel {color: white;"
+//                       " background-image: url(:/empty.png);"
+//                       " border-style: outset;"
+//                       " border-width: 5px;"
+//                       " border-radius: 30px;"
+//                       " border-color: beige;"
+//                       " font:  60px Segoe UI;"
+//                       " min-width: 10em;"
+//                       " padding: 6px;}");
+//
     QVBoxLayout *ly4 = new QVBoxLayout;
+    ly4->addWidget(lbl);
     ly4->addWidget(pb6.butt);
     ly4->addWidget(pb7.butt);
     ly4->addWidget(pb8.butt);
     serv4->setLayout(ly4);
     serv4->setStyleSheet("QWidget {background-image: url(:/background_2.png);}");
+
 
     tab->addTab(serv4, QPixmap(":/Настройки.png"), NULL);
 
@@ -157,18 +218,70 @@ MainWindow::MainWindow(QWidget *parent)
     this->connect(butt.butt, SIGNAL(clicked()), this, SLOT(NewsTab()));
     this->connect(pb.butt, SIGNAL(clicked()), this, SLOT(PayPoints()));
 
+    connect(pb6.butt, SIGNAL(clicked()), this, SLOT(showCoord()));
+
 
     QApplication::primaryScreen()->setOrientationUpdateMask(Qt::PortraitOrientation | Qt::LandscapeOrientation);
     QApplication::connect(QApplication::primaryScreen(), SIGNAL(orientationChanged(Qt::ScreenOrientation)), this, SLOT(ScreenSpin()));
 
     tab->show();
+}
+
+
+
+void MainWindow::showCoord()
+{
+
+    QString all;
+    all = latitude;
+    all += ",";
+    all += longitude;
+
+    QString URL("https://www.google.ru/maps/place/" + all);
+
+    QUrl myUrl(URL);
+    QDesktopServices::openUrl(myUrl);
 
 }
 
 
+
+
+
+
+
+
+
+
+
+void MainWindow::OpenMap()
+{
+   // QString URL("https://www.google.ru/maps/@"); //
+   // QString b = QString::number(lng, 'f', 10);
+   // QString a = QString::number(lat, 'f', 10);
+   //
+   //
+   // URL += a;
+   // URL += ",";
+   // URL += b;
+   //
+   // QUrl myUrl(URL);
+   // QDesktopServices::openUrl(myUrl);
+}
+
+
+
+
+
+
+
+
 void MainWindow::PayPoints()
 {
-    QUrl myUrl("https://goo.gl/maps/kKyHxhkhuXq");
+
+    QString URL("https://www.google.ru/maps/@");
+
+    QUrl myUrl(URL);
     QDesktopServices::openUrl(myUrl);
 }
 

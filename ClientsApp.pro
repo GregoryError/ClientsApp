@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT       += location
+QT       += positioning
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,10 +28,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    mapping.cpp
+    location.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    location.h
 
 CONFIG += mobility
 MOBILITY = 
