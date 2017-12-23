@@ -2,6 +2,7 @@
 
 #include <QGeoPositionInfoSource>
 
+double ShowDiff(location &first, location &second);
 
 struct Button                                                       // Making buttons
 {                                                                   // Making buttons
@@ -158,27 +159,58 @@ MainWindow::MainWindow(QWidget *parent)
     QGeoCoordinate coordinate = info.coordinate();
     latitude = QString::number(coordinate.latitude(), 'f', 6);
     longitude = QString::number(coordinate.longitude(), 'f', 6);
-    QString all(*text);
+    QString all;
 
 
-    all += " Coordinates: ";
-    all += latitude;
-    all += ",";
-    all += longitude;
-    lbl->setText(all);
+   //location owner(coordinate.latitude(), coordinate.longitude());
+   location owner(60.704484, 28.740949);
 
 
+   QVector<location> cashpoints;
+   cashpoints.push_back(location(60.693832, 28.762817));
+   cashpoints.push_back(location(60.692867, 28.773322));
+   cashpoints.push_back(location(60.697775, 28.776017));
+   cashpoints.push_back(location(60.699659, 28.782562));
+   cashpoints.push_back(location(60.694689, 28.787571));
+   cashpoints.push_back(location(60.698249, 28.790514));
+   cashpoints.push_back(location(60.704500, 28.775696));
+   cashpoints.push_back(location(60.705922, 28.768549));
+   cashpoints.push_back(location(60.704881, 28.749174));
+   cashpoints.push_back(location(60.707582, 28.753205));
+   cashpoints.push_back(location(60.709380, 28.752616));
+   cashpoints.push_back(location(60.710176, 28.747834));
+   cashpoints.push_back(location(60.711547, 28.744102));
+   cashpoints.push_back(location(60.716410, 28.759876));
+   cashpoints.push_back(location(60.713827, 28.740010));
+   cashpoints.push_back(location(60.719504, 28.715279));
+   cashpoints.push_back(location(60.531824, 28.669164));
+   cashpoints.push_back(location(60.365703, 28.607817));
 
-   location owner(latitude, longitude);
+
+   // std::sort(cashpoints.begin(), cashpoints.end());
+
+    location MinDistance;
+
+    auto beg = cashpoints.begin(), end = cashpoints.end();
+    MinDistance = *beg;
+    while(beg != end)
+    {
+        if(ShowDiff(MinDistance, owner) > ShowDiff(*beg, owner))
+        {
+            MinDistance = *beg;
+        }
+        ++beg;
+    }
 
 
+   longitude = QString::number(MinDistance.latitude, 'f', 6);
+   latitude = QString::number(MinDistance.longitude, 'f', 6);
 
+   all = latitude;
+   all += ",";
+   all += longitude;
 
-
-
-
-
-
+   lbl->setText(all);
 
 
     Button
@@ -186,19 +218,6 @@ MainWindow::MainWindow(QWidget *parent)
            pb7("Настройки дизайна", rq),
            pb8("Публичный договор", rq);
 
-
-
-
-//    lbl->setStyleSheet("QLabel {color: white;"
-//                       " background-image: url(:/empty.png);"
-//                       " border-style: outset;"
-//                       " border-width: 5px;"
-//                       " border-radius: 30px;"
-//                       " border-color: beige;"
-//                       " font:  60px Segoe UI;"
-//                       " min-width: 10em;"
-//                       " padding: 6px;}");
-//
     QVBoxLayout *ly4 = new QVBoxLayout;
     ly4->addWidget(lbl);
     ly4->addWidget(pb6.butt);
@@ -225,6 +244,14 @@ MainWindow::MainWindow(QWidget *parent)
     QApplication::connect(QApplication::primaryScreen(), SIGNAL(orientationChanged(Qt::ScreenOrientation)), this, SLOT(ScreenSpin()));
 
     tab->show();
+}
+
+
+
+
+double ShowDiff(location &first, location &second)
+{
+    return pow(pow((first.latitude - second.latitude), 2) + pow((first.longitude - second.longitude), 2), 0.5);
 }
 
 

@@ -21,6 +21,7 @@
 #include <QObject>
 #include <QGeoPositionInfoSource>
 #include "location.h"
+#include <QVector>
 
 
 // Navigation
@@ -34,6 +35,8 @@ class MainWindow : public QMainWindow
 public:
     QString latitude;
     QString longitude;
+    QString maximumlat;
+    QString maximumlong;
     MainWindow(QWidget *parent = 0);
     QTabWidget *tab = new QTabWidget(this);
 

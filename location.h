@@ -1,19 +1,37 @@
 #ifndef LOCATION_H
 #define LOCATION_H
-
+#include <QRect>
+#include <mainwindow.h>
 
 class location
 {
 public:
-    int value;
     double longitude, latitude;
-    QString name;
     location();
     location(const double &lon, const double &lat):longitude(lon), latitude(lat){}
-    location(const double &lon, const double &lat, const QString &name):longitude(lon), latitude(lat), name(name){}
-    location(const double &lon, const double &lat, const QString &name, int &val):
-        longitude(lon), latitude(lat), name(name), value(val){}
-    int getval() { return value; }
+
+    bool operator >(location &obj)
+    {
+        location temp(longitude, latitude);
+        location zero(0.0, 0.0);
+        if(ShowDiff(temp, zero) > ShowDiff(obj, zero))
+                return true;
+                else return false;
+    }
+    bool operator <(location &obj)
+    {
+        location temp(longitude, latitude);
+        location zero(0.0, 0.0);
+        if(ShowDiff(temp, zero) < ShowDiff(obj, zero))
+                return true;
+                else return false;
+    }
+
+    double ShowDiff(location &first, location &second)
+    {
+        return pow(pow((first.latitude - second.latitude), 2) + pow((first.longitude - second.longitude), 2), 0.5);
+    }
+
 
 };
 
